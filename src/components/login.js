@@ -1,11 +1,11 @@
 import React from 'react';
-import axios from 'axios';
+import {useDispatch, useSelector} from 'react-redux';
 
-import {authenticateUser, getToken, dataUser} from './auth'
 import {Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { loginUserAction } from '../actions/loginAction';
 
 function Copyright() {
   return (
@@ -40,8 +40,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login({setauth}) {
+export default function Login({history}) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  console.log(history);
 
   const [user, setUser] = React.useState({
       email: '',
@@ -49,6 +52,8 @@ export default function Login({setauth}) {
   })
 
   const {email, password} = user;
+
+  const login = (user) => dispatch(loginUserAction(user));
 
   const OnChange = e => {
     setUser({
@@ -58,32 +63,9 @@ export default function Login({setauth}) {
   }
 
   const OnSUbmit = e => {
-    e.preventDefault();
-    axios.post('http://192.168.1.104:8000/login', {
-      email: user.email,
-      password: user.password
-    })
-    .then(function (response) {
-      if (response.statusText === "OK"){
-        authenticateUser(response.data.accessToken);
-        const token = getToken();
-        var config = {
-          method: 'get',
-          url: `http://192.168.1.104:8000/440/users?email=${user.email}`,
-          headers: { 
-            'Authorization': `Bearer ${token}`
-          }
-        };
-        axios(config)
-        .then(function (response) {
-          dataUser(response.data[0].firstName, response.data[0].lastName);
-          setauth(true)
-        })
-        .catch(function (error) {
-          dataUser('hubo', 'un error');
-        });
-      }
-    })
+    e.preventDefault(); 
+    login(user);
+    
   }
 
   return (

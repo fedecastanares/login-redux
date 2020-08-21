@@ -4,6 +4,7 @@ import {Container, Typography, Grid,} from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import { makeStyles } from '@material-ui/core/styles';
 
+import {getUser} from './auth'
 
 const useStyles = makeStyles((theme) => ({
     user: {
@@ -12,8 +13,10 @@ const useStyles = makeStyles((theme) => ({
     }));
 
 
-const Users = ({userData}) => {
+const Users = () => {
     const classes = useStyles();
+    const userData = getUser();
+    
     return ( 
         <>
             <Container>
@@ -33,63 +36,7 @@ const Users = ({userData}) => {
                 <br/>
                 <br/>
                 <br/>
-                <table style={{width: '100%'}}>
-                  <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Age</th>
-                  </tr>
-                  <tr>
-                    <td>Jill</td>
-                    <td>Smith</td>
-                    <td>50</td>
-                  </tr>
-                  <tr>
-                    <td>Eve</td>
-                    <td>Jackson</td>
-                    <td>94</td>
-                  </tr>
-                  <tr>
-                    <td>Jill</td>
-                    <td>Smith</td>
-                    <td>50</td>
-                  </tr>
-                  <tr>
-                    <td>Eve</td>
-                    <td>Jackson</td>
-                    <td>94</td>
-                  </tr>
-                  <tr>
-                    <td>Jill</td>
-                    <td>Smith</td>
-                    <td>50</td>
-                  </tr>
-                  <tr>
-                    <td>Eve</td>
-                    <td>Jackson</td>
-                    <td>94</td>
-                  </tr>
-                  <tr>
-                    <td>Jill</td>
-                    <td>Smith</td>
-                    <td>50</td>
-                  </tr>
-                  <tr>
-                    <td>Eve</td>
-                    <td>Jackson</td>
-                    <td>94</td>
-                  </tr>
-                  <tr>
-                    <td>Jill</td>
-                    <td>Smith</td>
-                    <td>50</td>
-                  </tr>
-                  <tr>
-                    <td>Eve</td>
-                    <td>Jackson</td>
-                    <td>94</td>
-                  </tr>
-                </table>
+                <h2>Tabla</h2>
             </Container>
         </>
      );

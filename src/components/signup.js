@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Signin({setauth}) {
+export default function Signin() {
   const classes = useStyles();
 
   const [user, setUser] = React.useState({
@@ -85,7 +85,6 @@ export default function Signin({setauth}) {
       if (response.statusText === "Created"){
         authenticateUser(response.data.accessToken);
         dataUser(user.name, user.lastName);
-        setauth(true);
         console.log(response)
       }
     })
@@ -140,7 +139,7 @@ export default function Signin({setauth}) {
                     margin="normal"
                     required
                     fullWidth
-                    id="name"
+                    id="lastName"
                     label="Last Name"
                     name="lastName"
                     autoComplete="lastName"

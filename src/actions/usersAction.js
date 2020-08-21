@@ -5,7 +5,7 @@ import {
 
 } from '../types';
 
-export function loadUsers() {
+export function loadUsersAction() {
     return () => {
         console.log('desde action');
     }
