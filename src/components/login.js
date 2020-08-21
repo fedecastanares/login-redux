@@ -40,11 +40,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function Login({history}) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  console.log(history);
 
   const [user, setUser] = React.useState({
       email: '',
@@ -65,7 +66,7 @@ export default function Login({history}) {
   const OnSUbmit = e => {
     e.preventDefault(); 
     login(user);
-    
+    history.push('/user');
   }
 
   return (

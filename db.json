@@ -34,6 +34,13 @@
       "firstName": "Fede",
       "lastName": "Casta",
       "id": 5
+    },
+    {
+      "email": "70@70",
+      "password": "$2a$10$1X/BzkJY0ye.a1fF1Mdpe.S9Nkg1u6XLXzLFrPNbCQnNJmyPgehEm",
+      "firstName": "Fede ",
+      "lastName": "hola",
+      "id": 6
     }
   ]
 }

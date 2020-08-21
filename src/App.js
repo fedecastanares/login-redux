@@ -35,18 +35,9 @@ function App() {
         <Layout auth={auth}>
           <Router>
             <Switch>
-              <Route exact path='/'  render={() => 
-                isUserAuthenticated() 
-                  ? (<Redirect to='/users' />) 
-                  : <Login />} />
-              <Route exact path='/signup' render={() =>
-                isUserAuthenticated()
-                  ? (<Redirect to='/users' />)
-                  : <Signup /> }/>
-              <Route exact path='/users' render={() => 
-                isUserAuthenticated() 
-                  ? (<Users />) 
-                  : (<Redirect to='/' />)} />
+              <Route exact path='/'  component={() => isUserAuthenticated() ? (<Redirect to='/users' />) : Login}  />
+              <Route exact path='/signup' render={() => isUserAuthenticated() && <Redirect to='/users' />} component={Signup} />
+              <Route exact path='/users' render={() => isUserAuthenticated() ? <Users /> : (<Redirect to='/' />)} />
             </Switch>
           </Router>
         </Layout>
