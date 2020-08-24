@@ -5,13 +5,15 @@ import {
     LOGIN_USERS_ERROR
 } from '../types';
 
+import {IP, port} from '../config/';
+
 import {authenticateUser, getToken, dataUser} from '../components/auth';
 
 export function loginUserAction(user) {
     return (dispatch) => {
         dispatch(loginUser());
         try {
-            axios.post('http://192.168.1.104:8000/login', {
+            axios.post(`http://${IP}:${port}/login`, {
                 email: user.email,
                 password: user.password
               })
@@ -20,7 +22,7 @@ export function loginUserAction(user) {
                   const token = getToken();
                   var config = {
                     method: 'get',
-                    url: `http://192.168.1.104:8000/440/users?email=${user.email}`,
+                    url: `http://${IP}:${port}/440/users?email=${user.email}`,
                     headers: { 
                       'Authorization': `Bearer ${token}`
                     }
@@ -30,15 +32,12 @@ export function loginUserAction(user) {
                     dataUser(response.data[0].firstName, response.data[0].lastName);
                     dispatch(loginUserSuccessfully());
                   })
-                  .catch(function (error) {
-                    dispatch(loginUserError(true))
-                  });
               })
               .catch(function (error){
-                dispatch(loginUserError(true))
+                dispatch(loginUserError(error))
               });
         } catch (error) {
-            dispatch(loginUserError(true))
+            dispatch(loginUserError(error))
         }
     }
 }

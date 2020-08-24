@@ -1,17 +1,19 @@
-import React from 'react';
+import React , {useState,useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { loginUserAction } from '../actions/loginAction';
+import {isUserAuthenticated} from './auth';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://www.federicocastanares.com.uy">
+      <Link color="inherit" href="https://www.federicocastanares.com.uy" target="_blank" rel="noreferrer">
         Federico Castañares
       </Link>{' '}
       {new Date().getFullYear()}
@@ -38,23 +40,38 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  alert:{
+    height:'3rem',
+  }
 }));
 
 
 
-export default function Login({history}) {
+export default function Login(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const login = (user) => dispatch(loginUserAction(user));
+  const auth = useSelector(state => state.login.auth);
+  const error = useSelector(state => state.login.error);
 
-
-  const [user, setUser] = React.useState({
+  const [user, setUser] = useState({
       email: '',
       password: '',
-  })
+  });
 
-  const {email, password} = user;
+  useEffect(() => {
+    if (isUserAuthenticated()){
+      props.props.history.push('/');
+    }
+  },[auth]);
 
-  const login = (user) => dispatch(loginUserAction(user));
+
+  // Si hay error en la store
+  if (error){
+    console.log(error);
+  }
+  // Renderizarlo
+
 
   const OnChange = e => {
     setUser({
@@ -66,8 +83,10 @@ export default function Login({history}) {
   const OnSUbmit = e => {
     e.preventDefault(); 
     login(user);
-    history.push('/user');
   }
+
+  // Chequea campos vacios
+  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -80,6 +99,9 @@ export default function Login({history}) {
           Sign in
         </Typography>
         <form className={classes.form} noValidate onSubmit={OnSUbmit}>
+        <div className={classes.alert}>
+          <Alert severity="error" className={classes.alert}>This is an error alert — check it out!</Alert>
+        </div>
           <TextField
             variant="outlined"
             margin="normal"
@@ -90,7 +112,7 @@ export default function Login({history}) {
             name="email"
             autoComplete="email"
             autoFocus
-            value={email}
+            value={user.email}
             onChange={OnChange}
           />
           <TextField
@@ -103,7 +125,7 @@ export default function Login({history}) {
             type="password"
             id="password"
             autoComplete="current-password"
-            value={password}
+            value={user.password}
             onChange={OnChange}
           />
           <Button

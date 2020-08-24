@@ -35,9 +35,9 @@ function App() {
         <Layout auth={auth}>
           <Router>
             <Switch>
-              <Route exact path='/'  component={() => isUserAuthenticated() ? (<Redirect to='/users' />) : Login}  />
-              <Route exact path='/signup' render={() => isUserAuthenticated() && <Redirect to='/users' />} component={Signup} />
-              <Route exact path='/users' render={() => isUserAuthenticated() ? <Users /> : (<Redirect to='/' />)} />
+              <Route exact path='/'  render={(props) => isUserAuthenticated() ? <Redirect to='/users' /> : <Login props={props}/> }  />
+              <Route exact path='/signup' render={(props) => isUserAuthenticated() ? <Redirect to='/users' /> : <Signup props={props} />} />
+              <Route exact path='/users' render={(props) => isUserAuthenticated() ? <Users props={props}/> : <Redirect to='/' />} />
             </Switch>
           </Router>
         </Layout>

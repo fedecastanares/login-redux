@@ -7,6 +7,8 @@ import PersonIcon from '@material-ui/icons/Person';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
 
+import {IP, port} from '../config/';
+
 
 function Copyright() {
   return (
@@ -74,7 +76,7 @@ export default function Signin() {
     e.preventDefault();
 
     // Comprobacion de datos
-    axios.post('http://192.168.1.104:8000/users', {
+    axios.post(`http://${IP}:${port}/users`, {
       firstName: user.name,
       lastName: user.lastName,
       email: user.email,
