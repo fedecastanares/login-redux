@@ -41,6 +41,34 @@
       "firstName": "Fede ",
       "lastName": "hola",
       "id": 6
+    },
+    {
+      "email": "30@30",
+      "password": "$2a$10$JU6Nbq1NuowxJVIzGtNdWOnJF.71zWwqcROxMI5rRBhC1QhYAFWOq",
+      "firstName": "Fede",
+      "lastName": "hola",
+      "id": 7
+    },
+    {
+      "email": "50@50",
+      "password": "$2a$10$VniznVbuCo79jYFM83P/I.x5sunbF/uYEYLy4IKeo50oevC9iby/2",
+      "firstName": "fede",
+      "lastName": "casta",
+      "id": 8
+    },
+    {
+      "email": "60@60",
+      "password": "$2a$10$TJHwr5mCwMQoN5o2.YRJnOb9n6Hs8nopRcsb6DgGKekItAQ5cOaCO",
+      "firstName": "fede",
+      "lastName": "casta",
+      "id": 9
+    },
+    {
+      "email": "80@80",
+      "password": "$2a$10$f3gHwSPfXNt0f.U1hpSy0uMLe0riE3S.PhZvzWM3MLJnkJYTTj/QO",
+      "firstName": "hola",
+      "lastName": "fede",
+      "id": 10
     }
   ]
 }

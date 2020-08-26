@@ -1,14 +1,14 @@
 import {
     LOGIN_USER,
     LOGIN_USERS_SUCCESSFULLY,
-    LOGIN_USERS_ERROR
+    LOGIN_USERS_ERROR,
+    HIDE_ALERT
 
 } from '../types';
 
+
 const initialState = {
-    userData: [],
     error: false,
-    loading: false,
     auth: false,
 }
 
@@ -17,18 +17,19 @@ export default function(state = initialState, action){
         case LOGIN_USER:
             return {
                 ...state,
-                loading: action.payload,
             }
         case LOGIN_USERS_SUCCESSFULLY:
             return {
                 ...state,
-                loading: false,
                 auth: action.payload
             }
         case LOGIN_USERS_ERROR:
             return {
-                loading: false,
                 error: action.payload
+            }
+        case HIDE_ALERT:
+            return {
+                error: false
             }
         default:
             return state;

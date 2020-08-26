@@ -1,13 +1,15 @@
-import React from 'react';
-import axios from 'axios';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
-import {authenticateUser, dataUser} from './auth'
 import {Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container, IconButton} from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
+import Alert from './alert'
 
-import {IP, port} from '../config/';
+import {isUserAuthenticated} from './auth'
+import {signupUserAction, showAlert} from '../actions/signupAction';
+
 
 
 function Copyright() {
@@ -52,8 +54,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Signin() {
+export default function Signin(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const signup = (user) => dispatch(signupUserAction(user));
+  const error = useSelector(state => state.signup.error);
+  const auth = useSelector(state => state.signup.auth);
 
   const [user, setUser] = React.useState({
       name: '',
@@ -63,9 +69,7 @@ export default function Signin() {
       confirmPassword: '',
   })
 
-  const {name, lastName, email, password, confirmPassword} = user;
-
-  const OnChange = e => {
+  const handleInputChange = e => {
     setUser({
         ...user,
         [e.target.name] : e.target.value
@@ -74,27 +78,26 @@ export default function Signin() {
 
   const OnSUbmit = e => {
     e.preventDefault();
-
-    // Comprobacion de datos
-    axios.post(`http://${IP}:${port}/users`, {
-      firstName: user.name,
-      lastName: user.lastName,
-      email: user.email,
-      password: user.password,
-    })
-    .then(function (response) {
-      if (response.statusText === "Created"){
-        authenticateUser(response.data.accessToken);
-        dataUser(user.name, user.lastName);
-        console.log(response)
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-    // Limpiar los values
+    if (user.name.trim() === '' || user.lastName.trim() === '' || user.email.trim() === '' || user.password.trim() === '' || user.confirmPassword.trim() === '') {
+      dispatch(showAlert({type: 'warning', msg: 'All is required'}))
+      return
+    }
+    if (user.password.length <= 7 || user.confirmPassword.length <= 7) {
+      dispatch(showAlert({type: 'warning', msg: '8 caracters minimum for password'}))
+      return
+    }
+    if (user.password !== user.confirmPassword){
+      dispatch(showAlert({type: 'warning', msg: 'Passwords not equals'}))
+      return
+    }
+    signup(user);
   }
+
+    useEffect(() => {
+      if (isUserAuthenticated()){
+        props.props.history.push('/');
+      }
+    },[auth]); 
 
   return (
     <Container component="main" maxWidth="xs">
@@ -118,6 +121,7 @@ export default function Signin() {
             Create your Account
         </Typography>
         <form className={classes.form} noValidate onSubmit={OnSUbmit}>
+          <Alert error={error} />
           <Grid container spacing={2} justify='space-around' alignItems='center' className={classes.container}>
               <Grid item xs={12} sm={6} className={classes.spacing}>
                   <TextField
@@ -130,8 +134,8 @@ export default function Signin() {
                     name="name"
                     autoComplete="name"
                     autoFocus
-                    value={name}
-                    onChange={OnChange}
+                    value={user.name}
+                    onChange={handleInputChange}
                     />
               </Grid>
               <Grid item xs={12} sm={6} className={classes.spacing}>
@@ -144,8 +148,8 @@ export default function Signin() {
                     label="Last Name"
                     name="lastName"
                     autoComplete="lastName"
-                    value={lastName}
-                    onChange={OnChange}
+                    value={user.lastName}
+                    onChange={handleInputChange}
                     />
               </Grid>
           </Grid>
@@ -159,8 +163,8 @@ export default function Signin() {
             name="email"
             autoComplete="email"
             type="email"
-            value={email}
-            onChange={OnChange}
+            value={user.email}
+            onChange={handleInputChange}
           />
           <TextField
             variant="outlined"
@@ -172,8 +176,8 @@ export default function Signin() {
             type="password"
             id="password"
             autoComplete="current-password"
-            value={password}
-            onChange={OnChange}
+            value={user.password}
+            onChange={handleInputChange}
           />
           <TextField
             variant="outlined"
@@ -185,8 +189,8 @@ export default function Signin() {
             type="password"
             id="confirmPassword"
             autoComplete="current-password"
-            value={confirmPassword}
-            onChange={OnChange}
+            value={user.confirmPassword}
+            onChange={handleInputChange}
           />
           <Button
             type="submit"

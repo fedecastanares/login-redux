@@ -2,11 +2,11 @@ import React , {useState,useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container} from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { makeStyles } from '@material-ui/core/styles';
+import Alert from './alert'
 
-import { loginUserAction } from '../actions/loginAction';
+import { loginUserAction, showAlert } from '../actions/loginAction';
 import {isUserAuthenticated} from './auth';
 
 function Copyright() {
@@ -40,9 +40,6 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  alert:{
-    height:'3rem',
-  }
 }));
 
 
@@ -59,21 +56,7 @@ export default function Login(props) {
       password: '',
   });
 
-  useEffect(() => {
-    if (isUserAuthenticated()){
-      props.props.history.push('/');
-    }
-  },[auth]);
-
-
-  // Si hay error en la store
-  if (error){
-    console.log(error);
-  }
-  // Renderizarlo
-
-
-  const OnChange = e => {
+  const handleInputChange  = e => {
     setUser({
         ...user,
         [e.target.name] : e.target.value
@@ -82,12 +65,20 @@ export default function Login(props) {
 
   const OnSUbmit = e => {
     e.preventDefault(); 
+    if (user.email.trim() === '' || user.password.trim === ''){
+      dispatch(showAlert({type: 'warning', msg: 'All is required'}))
+      return 
+    } 
     login(user);
   }
+    
+  useEffect(() => {
+    if (isUserAuthenticated()){
+      props.props.history.push('/');
+    }
+  },[auth]); 
 
-  // Chequea campos vacios
   
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -99,9 +90,7 @@ export default function Login(props) {
           Sign in
         </Typography>
         <form className={classes.form} noValidate onSubmit={OnSUbmit}>
-        <div className={classes.alert}>
-          <Alert severity="error" className={classes.alert}>This is an error alert — check it out!</Alert>
-        </div>
+          <Alert error={error}/>
           <TextField
             variant="outlined"
             margin="normal"
@@ -113,7 +102,7 @@ export default function Login(props) {
             autoComplete="email"
             autoFocus
             value={user.email}
-            onChange={OnChange}
+            onChange={handleInputChange }
           />
           <TextField
             variant="outlined"
@@ -126,7 +115,7 @@ export default function Login(props) {
             id="password"
             autoComplete="current-password"
             value={user.password}
-            onChange={OnChange}
+            onChange={handleInputChange}
           />
           <Button
             type="submit"
