@@ -1,7 +1,7 @@
 ## Create .env file 
 Example:
-REACT_APP_BASE_URL=192.168.1.105
-REACT_APP_PORT=8000
+`REACT_APP_BASE_URL=192.168.1.105`
+`REACT_APP_PORT=8000`
 Remplace your ip and port
 
 ## React APP
