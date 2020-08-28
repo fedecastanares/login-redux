@@ -6,15 +6,13 @@ import {
     HIDE_ALERT
 } from '../types';
 
-import {IP, port} from '../config/';
-
 import {authenticateUser, getToken, dataUser} from '../components/auth';
 
 export function loginUserAction(user) {
     return (dispatch) => {
         dispatch(loginUser());
         try {
-            axios.post(`http://${IP}:${port}/login`, {
+            axios.post(`http://${process.env.REACT_APP_BASE_URL}:${process.env.REACT_APP_PORT}/login`, {
                 email: user.email,
                 password: user.password
               })
@@ -23,7 +21,7 @@ export function loginUserAction(user) {
                   const token = getToken();
                   var config = {
                     method: 'get',
-                    url: `http://${IP}:${port}/440/users?email=${user.email}`,
+                    url: `http://${process.env.REACT_APP_BASE_URL}:${process.env.REACT_APP_PORT}/440/users?email=${user.email}`,
                     headers: { 
                       'Authorization': `Bearer ${token}`
                     }

@@ -1,7 +1,8 @@
 import {
     LOADING_USERS,
     LOADING_USERS_SUCCESSFULLY,
-    LOADING_USERS_ERROR
+    LOADING_USERS_ERROR,
+    DELETE_USER
 
 } from '../types';
 
@@ -11,16 +12,24 @@ const initialState = {
     loading: true,
 }
 
+
 export default function(state = initialState, action){
     switch(action.type) {
-        case LOADING_USERS:
+        case LOADING_USERS:   
             return {
-                loading: action.payload
+                ...state,
+                loading: action.payload,
             }
         case LOADING_USERS_SUCCESSFULLY:
             return {
+                ...state,
                 users: action.payload,
                 loading: false,
+            }
+        case DELETE_USER:
+            return {
+                ...state,
+                users: state.users.filter((user) => user.id !== action.payload)
             }
         default:
             return state;

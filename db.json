@@ -1,20 +1,6 @@
 {
   "users": [
     {
-      "email": "40@40",
-      "password": "$2a$10$cZFgNTVDQpdJpXt2tWdu7.bc872Z1NXEkenZkLBw2pNVDuxp1cWLy",
-      "firstName": "Fede",
-      "lastName": "Hola",
-      "id": 1
-    },
-    {
-      "email": "nuevo@usu",
-      "password": "$2a$10$BI0bPZ4E982K.6toXGMRZeUh5u/bF4sDxcShc7YAGhyOpEeBBdJSi",
-      "firstName": "Nuevo",
-      "lastName": "usuario",
-      "id": 2
-    },
-    {
       "email": "v@ruiz",
       "password": "$2a$10$x6Jpf10oZreIppydJalx4eGk7V0X3xB7T9Wiu6RtagMxif4RJElJ6",
       "firstName": "Vero ",
@@ -23,52 +9,10 @@
     },
     {
       "email": "10@10",
-      "password": "$2a$10$70bMc4RBIWtxr2cRWSW/AOtFPhT36RhZ/P.sjLmu/RNB9sehkAC0G",
-      "firstName": "Usuario",
-      "lastName": "Nuevo",
+      "password": "$2a$10$25OTfa1NONu4bu03JIx5bu75IxFmRky2qqmopi5z7N1jaQJkbSgP2",
+      "firstName": "fede",
+      "lastName": "nuevo",
       "id": 4
-    },
-    {
-      "email": "20@20",
-      "password": "$2a$10$mV8wjpoD4L6ChG0FgjA41uyDGLQtw/yQ4ffAnHDx7yQh/Bb6M3.Vu",
-      "firstName": "Fede",
-      "lastName": "Casta",
-      "id": 5
-    },
-    {
-      "email": "70@70",
-      "password": "$2a$10$1X/BzkJY0ye.a1fF1Mdpe.S9Nkg1u6XLXzLFrPNbCQnNJmyPgehEm",
-      "firstName": "Fede ",
-      "lastName": "hola",
-      "id": 6
-    },
-    {
-      "email": "30@30",
-      "password": "$2a$10$JU6Nbq1NuowxJVIzGtNdWOnJF.71zWwqcROxMI5rRBhC1QhYAFWOq",
-      "firstName": "Fede",
-      "lastName": "hola",
-      "id": 7
-    },
-    {
-      "email": "50@50",
-      "password": "$2a$10$VniznVbuCo79jYFM83P/I.x5sunbF/uYEYLy4IKeo50oevC9iby/2",
-      "firstName": "fede",
-      "lastName": "casta",
-      "id": 8
-    },
-    {
-      "email": "60@60",
-      "password": "$2a$10$TJHwr5mCwMQoN5o2.YRJnOb9n6Hs8nopRcsb6DgGKekItAQ5cOaCO",
-      "firstName": "fede",
-      "lastName": "casta",
-      "id": 9
-    },
-    {
-      "email": "80@80",
-      "password": "$2a$10$f3gHwSPfXNt0f.U1hpSy0uMLe0riE3S.PhZvzWM3MLJnkJYTTj/QO",
-      "firstName": "hola",
-      "lastName": "fede",
-      "id": 10
     }
   ]
 }

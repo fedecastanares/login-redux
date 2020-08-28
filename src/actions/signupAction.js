@@ -7,7 +7,6 @@ import {
 
 } from '../types';
 
-import {IP, port} from '../config/';
 
 import {authenticateUser, dataUser} from '../components/auth';
 
@@ -15,7 +14,7 @@ export function signupUserAction(user) {
     return (dispatch) => {
         dispatch(signupUser());
         try {
-            axios.post(`http://${IP}:${port}/users`, {
+            axios.post(`http://${process.env.REACT_APP_BASE_URL}:${process.env.REACT_APP_PORT}/users`, {
               firstName: user.name,
               lastName: user.lastName,
               email: user.email,
